@@ -1,4 +1,4 @@
-# Swap
+# Swap [![Netlify Status](https://api.netlify.com/api/v1/badges/91a287cb-3680-4870-9537-15a9a400fbe5/deploy-status)](https://app.netlify.com/sites/swapapp/deploys)
 
 A minimal automated market maker, using the simplest possible implementation of bonding curve with no fees. It has two main functions: `mint` and `redeem`.
 
