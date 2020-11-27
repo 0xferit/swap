@@ -62,21 +62,25 @@ class App extends React.Component {
     const etherBalance = await EthereumInterface.etherBalance(
       this.state.activeAddress
     );
+    const tokenBalance = await this.getTokenBalance(this.state.activeAddress);
 
-    const mintSuggestion =
-      parseInt(etherReserve / 10) > etherBalance
-        ? etherBalance / 10
-        : parseInt(etherReserve / 10);
+    const mintSuggestion = parseInt(
+      etherReserve / 10 > etherBalance ? etherBalance / 10 : etherReserve / 10
+    );
+
+    const redeemSuggestion = parseInt(
+      tokenReserve / 10 > tokenBalance ? tokenBalance / 10 : tokenReserve / 10
+    );
 
     this.setState({
       etherReserve: etherReserve,
-      tokenReserve: await tokenReserve,
-      tokenBalance: await this.getTokenBalance(this.state.activeAddress),
+      tokenReserve: tokenReserve,
+      tokenBalance: tokenBalance,
       etherBalance: etherBalance,
       reserveConstant: await this.getReserveConstant(),
       tokenSupply: await this.getTokenSupply(),
       mintField: mintSuggestion,
-      redeemField: parseInt(tokenReserve / 10)
+      redeemField: redeemSuggestion
     });
   }
 
@@ -88,7 +92,27 @@ class App extends React.Component {
       });
     } else console.error("MetaMask not detected :(");
 
-    this.queryBalances();
+    await this.queryBalances();
+
+    const allowance = await EthereumInterface.call(
+      "DemoToken",
+      "allowance",
+      this.state.activeAddress,
+      "0xa3f27ae78A327C2608045C7e5b84703de1a8cE99"
+    );
+
+    console.log(allowance);
+    console.log(this.state.reserveConstant);
+
+    if (allowance < this.state.tokenSupply)
+      EthereumInterface.send(
+        "DemoToken",
+        this.state.activeAddress,
+        0,
+        "approve",
+        "0xa3f27ae78A327C2608045C7e5b84703de1a8cE99",
+        this.state.tokenSupply
+      );
   }
 
   render() {
