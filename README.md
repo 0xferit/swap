@@ -10,6 +10,7 @@ This repo contains the smart contracts and a react web applications to demonstra
 - Bootstrap
 - Web3.js
 - Mocha 
+- Netlify (CI pipeline, live at https://swapapp.netlify.app/)
 
 ## How to run
 
