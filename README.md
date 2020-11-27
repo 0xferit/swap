@@ -13,8 +13,9 @@ This repo contains the smart contracts and a react web applications to demonstra
 
 ## How to run
 
-1. Truffle directory under `src/truffle/`. `cd src/truffle && yarn test` command compiles and tests contracts.
+1. Truffle directory under `src/truffle/`. `yarn && yarn test` command compiles and tests contracts.
 
-2. Root directory contains the react app. `yarn start` starts it. Switch over to kovan network to use it.
+2. Root directory contains the react app. `yarn && yarn start` starts it. Switch over to kovan network to use it.
 
+Or a one liner: `cd src/truffle/ && yarn && yarn compile && cd ../../ && yarn && yarn start`
 
